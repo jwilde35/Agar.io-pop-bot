@@ -16,14 +16,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 // ==UserScript==
-// @name        AposLauncher
-// @namespace   AposLauncher
+// @name        AposLauncher EXPLOSIVE
+// @namespace   AposLauncher EXPLOSIVE
 // @include     http://agar.io/*
-// @version     4.147
+// @version     4.149
 // @grant       none
 // @author      http://www.twitch.tv/apostolique
 // ==/UserScript==
-var aposLauncherVersion = 4.147;
+var aposLauncherVersion = 4.149;
 
 var showAd = true;
 
@@ -662,24 +662,9 @@ console.log("Running Bot Launcher!");
         }
     }
 
-    window.drawCircle = function(x_1, y_1, radius, drawColor, opacity) {
+    window.drawCircle = function(x_1, y_1, radius, drawColor) {
         if (!toggleDraw) {
-            circles.push([x_1, y_1, radius, drawColor, opacity]);
-        }
-    }
-
-    window.shoot = function() {
-        if (!toggle && shootTime + shootCooldown < new Date().getTime()) {
-            shootTime = new Date().getTime();
-            opCode(21);
-        }
-    }
-
-    window.split = function() {
-
-        if (!toggle && splitTime + splitCooldown < new Date().getTime()) {
-            splitTime = new Date().getTime();
-            opCode(17);
+            circles.push([x_1, y_1, radius, drawColor]);
         }
     }
 
@@ -697,6 +682,7 @@ console.log("Running Bot Launcher!");
 
         if (getPlayer().length == 0 && !firstStart) {
             console.log("Revive");
+            originalName = names[Math.floor(Math.random() * names.length)],
             setNick(originalName);
             reviving = true;
         } else if (getPlayer().length > 0 && reviving) {
@@ -929,10 +915,6 @@ console.log("Running Bot Launcher!");
         d.restore();
         d.save();
         for (var i = 0; i < circles.length; i++) {
-            d.beginPath();
-
-            d.lineWidth = 10;
-            
             if (circles[i][3] == 0) {
                 d.strokeStyle = "#FF0000";
             } else if (circles[i][3] == 1) {
@@ -952,13 +934,11 @@ console.log("Running Bot Launcher!");
             } else {
                 d.strokeStyle = "#000000";
             }
+            d.beginPath();
 
-            if (circles[i][4] === undefined) {
-                circles[i][4] = 0.3;
-            }
-
+            d.lineWidth = 10;
             //d.setLineDash([5]);
-            d.globalAlpha = circles[i][4];
+            d.globalAlpha = 0.3;
 
             d.arc(circles[i][0], circles[i][1], circles[i][2], 0, 2 * Math.PI, false);
 
@@ -1370,7 +1350,7 @@ console.log("Running Bot Launcher!");
                 toggleDraw = false,
                 shootTime = 0,
                 splitTime = 0,
-                shootCooldown = 100,
+                shootCooldown = 450,
                 splitCooldown = 100,
                 tempPoint = [0, 0, 1],
                 dPoints = [],
@@ -1380,10 +1360,8 @@ console.log("Running Bot Launcher!");
                 lines = [],
                 names = [
                     "EXPLOSIVE",
-                    "Creeper",
                     "Eat Me",
                     "Free food",
-                    "Hot sauce",
                     "AFK"
                 ],
                 firstStart = true;
@@ -1473,6 +1451,7 @@ console.log("Running Bot Launcher!");
                 d.setNick = function(a) {
                     //UPDATE
                     firstStart = false;
+                    originalName = names[Math.floor(Math.random() * names.length)],
                     originalName = a;
                     if (getPlayer().length == 0) {
                         lifeTimer = new Date();
@@ -2095,8 +2074,8 @@ console.log("Running Bot Launcher!");
                         }
                     }(),
                     U = {},
-                    ob = "notreallyabot;poland;usa;china;russia;canada;australia;spain;brazil;germany;ukraine;france;sweden;chaplin;north korea;south korea;japan;united kingdom;earth;greece;latvia;lithuania;estonia;finland;norway;cia;maldivas;austria;nigeria;reddit;yaranaika;confederate;9gag;indiana;4chan;italy;bulgaria;tumblr;2ch.hk;hong kong;portugal;jamaica;german empire;mexico;sanik;switzerland;croatia;chile;indonesia;bangladesh;thailand;iran;iraq;peru;moon;botswana;bosnia;netherlands;european union;taiwan;pakistan;hungary;satanist;qing dynasty;matriarchy;patriarchy;feminism;ireland;texas;facepunch;prodota;cambodia;steam;piccolo;ea;india;kc;denmark;quebec;ayy lmao;sealand;bait;tsarist russia;origin;vinesauce;stalin;belgium;luxembourg;stussy;prussia;8ch;argentina;scotland;sir;romania;belarus;wojak;doge;nasa;byzantium;imperial japan;french kingdom;somalia;turkey;mars;pokerface;8;irs;receita federal;facebook".split(";"),
-                    Gb = ["8", "nasa"],
+                    ob = "notreallyabot;poland;usa;china;russia;canada;australia;spain;brazil;germany;ukraine;france;sweden;chaplin;north korea;south korea;japan;united kingdom;earth;greece;latvia;lithuania;estonia;finland;norway;cia;maldivas;austria;nigeria;reddit;yaranaika;confederate;9gag;indiana;4chan;italy;bulgaria;tumblr;2ch.hk;hong kong;portugal;jamaica;german empire;mexico;sanik;switzerland;croatia;chile;indonesia;bangladesh;thailand;iran;iraq;peru;moon;botswana;bosnia;netherlands;european union;taiwan;pakistan;hungary;satanist;qing dynasty;matriarchy;patriarchy;feminism;ireland;texas;facepunch;prodota;cambodia;steam;piccolo;ea;india;kc;denmark;quebec;ayy lmao;sealand;bait;tsarist russia;origin;vinesauce;stalin;belgium;luxembourg;stussy;prussia;8ch;argentina;scotland;sir;romania;belarus;wojak;doge;nasa;byzantium;imperial japan;french kingdom;somalia;turkey;mars;pokerface;8;irs;receita federal;facebook;putin;merkel;tsipras;obama;kim jong-un;dilma;hollande;berlusconi;cameron;clinton;hillary;venezuela;blatter;chavez;cuba;fidel;merkel;palin;queen;boris;bush;trump".split(";"),
+                    Gb = ["8;nasa;putin;merkel;tsipras;obama;kim jong-un;dilma;hollande;berlusconi;cameron;clinton;hillary;blatter;chavez;fidel;merkel;palin;queen;boris;bush;trump"],
                     Hb = ["m'blob"];
                 Ka.prototype = {
                     V: null,
